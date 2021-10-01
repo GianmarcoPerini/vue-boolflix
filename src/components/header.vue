@@ -6,7 +6,7 @@
 
             <div class="input-box">
                 <input class="me-4" type="text" v-model.trim="myInput">
-                <button @click=" axMov(myInput) "> Ricerca </button>
+                <button @click=" axMov(myInput), axSer(myInput) "> Ricerca </button>
             </div>
         
     </header>
@@ -15,17 +15,12 @@
 <script>
 export default {
     name:'Header',
-    props: ['axMov'],
+    props: ['axMov', 'axSer'],
     data(){
         return{
             myInput: '',
         }
     },
-
-    methods: {
-        
-    },
-
 }
 </script>
 
