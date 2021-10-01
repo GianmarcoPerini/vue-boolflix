@@ -1,7 +1,7 @@
 <template>
-  <div id="app" >
-    <Header @search="dataSearch"/>
-    <Main :bigData="filterArr"/>
+  <div id="app">
+    <Header :axMov="axiosMovies()" :axSer="axiosSeries()" @searchMov="dataSearchMov" @searchSer="dataSearchSer"/>
+    <Main :bigDataMovies="filterArrMovies" :bigDataSeries="filterArrSeries" />
   </div>
 </template>
 
@@ -19,15 +19,37 @@ export default {
 
   data(){
     return{
-    dataFolder: [],
-    dataSearched: '',
+    dataFolderMov: [],
+    dataFolderSer: [],
+    dataSearchedMov: 'fhhfgh',
+    dataSearchedSer: 'fhhfgh',
     }
   },
 
   methods:{
 
-    dataSearch(x){
-      this.dataSearched = x
+    axiosMovies(){
+      axios.get('https://api.themoviedb.org/3/search/movie?api_key=e99307154c6dfb0b4750f6603256716d', {
+        params: {
+          query: this.dataSearchedMov,
+        }
+      }).then(res => this.dataFolderMov = [...res.data.results]) 
+    },
+
+    axiosSeries(){
+      axios.get('https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d', {
+        params: {
+          query: this.dataSearchedSer,
+        }
+      }).then(res => this.dataFolderSer = [...res.data.results]) 
+    },
+
+    dataSearchMov(x){
+      this.dataSearchedMov = x
+    },
+
+    dataSearchSer(x){
+      this.dataSearchedSer = x
     },
 
     log(x){
@@ -36,19 +58,16 @@ export default {
   },
 
   computed: {
-      filterArr(){
-        if(this.dataSearched == '' ) return;
-          return this.dataFolder.filter(el => el.title.toLowerCase().includes(this.dataSearched.toLowerCase()))
+      filterArrMovies(){
+          return this.dataFolderMov.filter(el => el.title.toLowerCase().includes(this.dataSearchedMov.toLowerCase()))
+      },
+
+      filterArrSeries(){
+          return this.dataFolderSer.filter(el => el.name.toLowerCase().includes(this.dataSearchedSer.toLowerCase()))
       },
     },
-
-
-  mounted(){
-  axios.get('https://api.themoviedb.org/3/movie/popular?api_key=3c83c09e6615af6bfc5db9dc0a3760a3')
-    .then(res => this.dataFolder = [...res.data.results]
-    )
   }
-}
+
 </script>
 
 <style lang="scss">
