@@ -5,7 +5,7 @@
         </div>
 
             <div class="input-box">
-                <input class="me-4" type="text" name="" id="" v-model="myInput">
+                <input class="me-4" type="text" name="" id="" v-model.trim="myInput" @keyup.enter="$emit('search', myInput)">
                 <button type="reset" @click="$emit('search', myInput)">Ricerca</button>
             </div>
         
