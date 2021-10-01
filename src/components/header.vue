@@ -5,8 +5,8 @@
         </div>
 
             <div class="input-box">
-                <input class="me-4" type="text" name="" id="" v-model.trim="myInput" @keyup.enter="$emit('searchMov', myInput)" @keydown.enter="$emit('searchSer', myInput)">
-                <button type="reset" @click="$emit('searchMov', myInput)">Ricerca</button>
+                <input class="me-4" type="text" v-model.trim="myInput">
+                <button @click=" axMov(myInput) "> Ricerca </button>
             </div>
         
     </header>
@@ -15,7 +15,7 @@
 <script>
 export default {
     name:'Header',
-    props: ['axMov', 'axSer'],
+    props: ['axMov'],
     data(){
         return{
             myInput: '',

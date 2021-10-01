@@ -24,8 +24,8 @@
                 </div>
             </div>
 
-            <div class="container mt-4 mb-4">
-                <div class="card-wrapper row row-cols-5 g-3">
+
+                <!-- <div class="card-wrapper row row-cols-5 g-3">
                     <div class="col" v-for="(data, i) in bigDataSeries" :key="i">
                         <div class="single-card position-relative">
                             <div class="cover position-absolute">
@@ -45,8 +45,7 @@
                         </div>
                         
                     </div>
-                </div>
-            </div>
+                </div> -->
             
                 
 
@@ -57,7 +56,7 @@
 <script>
 export default {
     name: 'Main',
-    props: ['bigDataMovies', 'bigDataSeries'],
+    props: ['bigDataMovies'],
 
 }
 </script>

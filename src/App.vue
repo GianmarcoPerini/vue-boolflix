@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Header :axMov="axiosMovies()" :axSer="axiosSeries()" @searchMov="dataSearchMov" @searchSer="dataSearchSer"/>
-    <Main :bigDataMovies="filterArrMovies" :bigDataSeries="filterArrSeries" />
+    <Header :axMov="axiosMovies"/>
+    <Main :bigDataMovies="filterArrMovies" />
   </div>
 </template>
 
@@ -20,37 +20,38 @@ export default {
   data(){
     return{
     dataFolderMov: [],
-    dataFolderSer: [],
-    dataSearchedMov: 'fhhfgh',
-    dataSearchedSer: 'fhhfgh',
+    dataSearchedMov: '',
     }
   },
 
   methods:{
 
-    axiosMovies(){
+    axiosMovies(x){
       axios.get('https://api.themoviedb.org/3/search/movie?api_key=e99307154c6dfb0b4750f6603256716d', {
         params: {
-          query: this.dataSearchedMov,
+          query: x,
         }
-      }).then(res => this.dataFolderMov = [...res.data.results]) 
+      }).then(res => {
+        this.dataFolderMov = [...res.data.results]
+        this.dataSearchedMov = x
+        }) 
     },
 
-    axiosSeries(){
-      axios.get('https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d', {
-        params: {
-          query: this.dataSearchedSer,
-        }
-      }).then(res => this.dataFolderSer = [...res.data.results]) 
-    },
+    // axiosSeries(){
+    //   axios.get('https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d', {
+    //     params: {
+    //       query: this.dataSearchedSer,
+    //     }
+    //   }).then(res => this.dataFolderSer = [...res.data.results]) 
+    // },
 
-    dataSearchMov(x){
-      this.dataSearchedMov = x
-    },
+    // dataSearchMov(x){
+    //   this.dataSearchedMov = x
+    // },
 
-    dataSearchSer(x){
-      this.dataSearchedSer = x
-    },
+    // dataSearchSer(x){
+    //   this.dataSearchedSer = x
+    // },
 
     log(x){
       console.log(x);
@@ -62,9 +63,9 @@ export default {
           return this.dataFolderMov.filter(el => el.title.toLowerCase().includes(this.dataSearchedMov.toLowerCase()))
       },
 
-      filterArrSeries(){
-          return this.dataFolderSer.filter(el => el.name.toLowerCase().includes(this.dataSearchedSer.toLowerCase()))
-      },
+      // filterArrSeries(){
+      //     return this.dataFolderSer.filter(el => el.name.toLowerCase().includes(this.dataSearchedSer.toLowerCase()))
+      // },
     },
   }
 
