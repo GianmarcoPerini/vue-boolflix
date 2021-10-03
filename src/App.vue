@@ -2,12 +2,6 @@
   <div id="app">
     <Header :axMov="axiosMovies" :axSer="axiosSeries"/>
     <Main :bigDataMovies="filterArrMovies" :bigDataSeries="filterArrSeries" />
-
-
-
-
-
-
   </div>
 </template>
 
@@ -56,10 +50,6 @@ export default {
         this.dataSearchedSer = y
         }) 
     },
-
-    log(x){
-      console.log(x);
-    }
   },
 
   computed: {
