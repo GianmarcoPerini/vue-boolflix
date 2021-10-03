@@ -1,6 +1,6 @@
 <template>
     
-        <star-rating v-model="rating" :read-only="true" :showRating="false" :item-size="15" :inline="true" ></star-rating>
+        <star-rating v-model="rating" :read-only="true" :showRating="false" :item-size="15"></star-rating>
     
 </template>
 
@@ -33,8 +33,6 @@ export default{
 
 <style lang="scss" >
 
-.rating{
-    width: 250px;
-}
+
 
 </style>

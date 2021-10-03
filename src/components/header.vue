@@ -1,13 +1,17 @@
 <template>
-    <header class="d-flex justify-content-between align-items-center ps-2 pe-5">
-        <div class="logo">
-            <img src="../assets/peraflix.png" alt="">
-        </div>
+    <header class="container" >
+        
+            <div class="row justify-content-between align-items-center">
+                <div class="logo col-md-6 col-12">
+                    <img src="../assets/peraflix.png" alt="">
+                </div>
 
-            <div class="input-box">
-                <input class="me-4" type="text" v-model.trim="myInput">
-                <button @click=" axMov(myInput), axSer(myInput) "> Ricerca </button>
+                <div class="input-box col-md-6 col-12">
+                    <input class="me-4" type="text" v-model.trim=" myInput " @keyup.enter=" axMov(myInput), axSer(myInput) ">
+                    <button @click=" axMov(myInput), axSer(myInput) "> Ricerca </button>
+                </div>
             </div>
+        
         
     </header>
 </template>
@@ -31,9 +35,14 @@ export default {
 <style lang="scss" scoped>
 @import './style/generalImportedFile';
 
-    header{
-        height: 100px;
-        background-color: blue;
+    .input-box{
+        text-align: end;
+    }
+
+    @media only screen and (max-width: 768px){
+        .input-box{
+            text-align: start;
+        }
     }
 
 

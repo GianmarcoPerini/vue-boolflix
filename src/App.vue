@@ -78,6 +78,10 @@ export default {
 <style lang="scss">
 @import './components/style/generalImportedFile.scss';
 
-
+#app{
+  background-color: #1f1c1d;
+  height: 100vh;
+  overflow-y: hidden;
+}
 
 </style>
