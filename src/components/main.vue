@@ -4,23 +4,25 @@
             <div class="container mt-4 mb-4">
                 <h1 v-show=" bigDataMovies.length > 0 ">FILM</h1>
                 <div class="card-wrapper row row-cols-5 g-3">
-                    <div class="col" v-for="(data, i) in bigDataMovies" :key="i">
-                        <div class="single-card position-relative">
+                    <div v-show=" data.poster_path != null " class="col" v-for="data in bigDataMovies" :key="data.id">
+                        <div  class="single-card position-relative">
                             <div class="cover position-absolute">
-                                <img src="https://via.placeholder.com/400x400" alt="">
+                                <img :src="'https://image.tmdb.org/t/p/original' + data.poster_path" :alt="data.poster_path">
                             </div>
                             <div class="info">
                                 <h4 class="text-white mb-4 text-center">Titolo: {{data.title}}</h4>
                                 <p class="m-0 ps-2">Titolo originale: {{data.original_title}}</p>
-                                <p class="m-0 ps-2">Voto {{data.vote_average}}</p>
+                                <p class="m-0 ps-2 d-inline">Voto: <Rating :vote="data.vote_average"/></p>
                                 <p class="m-0 ps-2" v-if="( data.original_language == 'it' )">Lingua: 
                                     <img class="w-25" src="../assets/Flag_of_Italy.svg" alt="">
                                 </p>
                                 <p v-else-if="(data.original_language == 'en')"> Lingua: 
                                     <img class="w-25" src="../assets/Flag_of_the_United_Kingdom.svg" alt="">
                                 </p>
+                                
                             </div>
                         </div>
+                        
                         
                     </div>
                 </div>
@@ -29,21 +31,22 @@
             <div class="container">
                 <h1 v-show=" bigDataSeries.length > 0 ">SERIE TV</h1>
                 <div class="card-wrapper row row-cols-5 g-3">
-                    <div class="col" v-for="(data, i) in bigDataSeries" :key="i">
+                    <div v-show="data.poster_path != null" class="col" v-for="data in bigDataSeries" :key="data.id">
                         <div class="single-card position-relative">
                             <div class="cover position-absolute">
-                                <img src="https://via.placeholder.com/400x400" alt="">
+                                <img :src="'https://image.tmdb.org/t/p/original' + data.poster_path" :alt="data.poster_path">
                             </div>
                             <div class="info">
                                 <h4 class="text-white mb-4 text-center">Titolo: {{data.name}}</h4>
                                 <p class="m-0 ps-2">Titolo originale: {{data.original_name}}</p>
-                                <p class="m-0 ps-2">Voto {{data.vote_count}}</p>
+                                <p class="m-0 ps-2">Voto <Rating :vote="data.vote_average"/></p>
                                 <p class="m-0 ps-2" v-if="( data.original_language == 'it' )">Lingua: 
                                     <img class="w-25" src="../assets/Flag_of_Italy.svg" alt="">
                                 </p>
                                 <p v-else-if="(data.original_language == 'en')"> Lingua: 
                                     <img class="w-25" src="../assets/Flag_of_the_United_Kingdom.svg" alt="">
                                 </p>
+                                <p v-else> Lingua: {{data.original_language}}</p>
                             </div>
                         </div>
                         
@@ -58,9 +61,24 @@
 </template>
 
 <script>
+import Rating from './rating'
+
+
 export default {
     name: 'Main',
-    props: ['bigDataMovies', 'bigDataSeries'],
+    props: {
+        bigDataMovies: Array,
+        bigDataSeries: Array,
+    },
+    components: {
+        Rating,
+    },
+
+    data(){
+        return{
+
+        }
+    },
 
 }
 </script>
@@ -95,6 +113,7 @@ main{
             img{
                 width: 100%;
                 height: 100%;
+                object-fit: fill;
             }
             
         }

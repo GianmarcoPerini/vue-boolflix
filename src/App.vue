@@ -1,7 +1,13 @@
 <template>
-  <div id="app" @click=" log(filterArrMovies), log(filterArrSeries)">
+  <div id="app">
     <Header :axMov="axiosMovies" :axSer="axiosSeries"/>
     <Main :bigDataMovies="filterArrMovies" :bigDataSeries="filterArrSeries" />
+
+
+
+
+
+
   </div>
 </template>
 
@@ -9,6 +15,7 @@
 import axios from 'axios'
 import Header from './components/header'
 import Main from './components/main'
+
 
 export default {
   name: 'App',

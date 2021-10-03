@@ -15,7 +15,11 @@
 <script>
 export default {
     name:'Header',
-    props: ['axMov', 'axSer'],
+    props:{
+        axMov: Function,
+        axSer: Function,
+    },
+
     data(){
         return{
             myInput: '',
