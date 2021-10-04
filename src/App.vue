@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <Header :axMov="axiosMovies" :axSer="axiosSeries"/>
-    <Main :bigDataMovies="filterArrMovies" :bigDataSeries="filterArrSeries" />
+    <Header :axMov="axiosMovies" :axSer="axiosSeries" />
+    <Main :bigDataMovies="dataFolderMov" :bigDataSeries="dataFolderSer" />
+    <button @click="axiosMovies">cliccami</button>
   </div>
 </template>
 
@@ -22,46 +23,44 @@ export default {
     return{
     dataFolderMov: [],
     dataFolderSer: [],
-    dataSearchedMov: '',
-    dataSearchedSer: '',
+    apiKey: 'e99307154c6dfb0b4750f6603256716d',
+    apiUrlMov: 'https://api.themoviedb.org/3/search/movie',
+    apiUrlSer: 'https://api.themoviedb.org/3/search/tv',
+    count: 1,
     }
   },
 
   methods:{
 
-    axiosMovies(x){
-      axios.get('https://api.themoviedb.org/3/search/movie?api_key=e99307154c6dfb0b4750f6603256716d', {
-        params: {
-          query: x,
-        }
-      }).then(res => {
-        this.dataFolderMov = [...res.data.results]
-        this.dataSearchedMov = x
+    axiosMovies(input){
+      if(input.length > 1){
+        axios.get(this.apiUrlMov, {
+          params: {
+            api_key: this.apiKey,
+            query: input,
+            page: this.count,
+          }
+        }).then(res => {
+          this.dataFolderMov = [...res.data.results]          
         }) 
+      }
     },
 
-    axiosSeries(y){
-      axios.get('https://api.themoviedb.org/3/search/tv?api_key=e99307154c6dfb0b4750f6603256716d', {
-        params: {
-          query: y,
-        }
-      }).then(res => {
-        this.dataFolderSer = [...res.data.results]
-        this.dataSearchedSer = y
+    axiosSeries(input){
+      if(input.length > 1){
+        axios.get(this.apiUrlSer, {
+          params: {
+            api_key: this.apiKey,
+            query: input,
+            page: 1,
+          }
+        }).then(res => {
+          this.dataFolderSer = [...res.data.results]
         }) 
+      }
     },
   },
-
-  computed: {
-      filterArrMovies(){
-          return this.dataFolderMov.filter(el => el.title.toLowerCase().includes(this.dataSearchedMov.toLowerCase()))
-      },
-
-      filterArrSeries(){
-          return this.dataFolderSer.filter(el => el.name.toLowerCase().includes(this.dataSearchedSer.toLowerCase()))
-      },
-    },
-  }
+}
 
 </script>
 
