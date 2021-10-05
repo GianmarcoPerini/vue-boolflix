@@ -1,5 +1,5 @@
 <template>
-    <div class="single-card position-relative">
+    <div class="single-card position-relative ">
         <div class="cover position-absolute">
             <img :src="'https://image.tmdb.org/t/p/original' + poster" :alt="poster">
         </div>
@@ -14,17 +14,19 @@
                 <img class="ms-2" src="../assets/Flag_of_the_United_Kingdom.svg" alt="">
             </p>
             <p class="mb-1 ps-2" v-else>Lingua: <span class="min">{{language}}</span></p>
+            <div class="text-white" v-for="(el,i) in catsNameFn(movID)" :key="i">{{el}}</div>
         </div>
     </div>
     
 </template>
 
 <script>
+import axios from 'axios'
 import Rating from './rating.vue'
-
 export default {    
     name: 'Card',
     props:{
+        movID: Number,
         poster: String,
         title: String,
         orTitle: String,
@@ -33,10 +35,44 @@ export default {
         language: String,
         vote: Number,
     },
-    //  [ 'poster','title','language','name','orName','orTitle','vote'  ],
     components:{
         Rating,
+    },
+    data(){
+        return{
+        id:'',
+        apiUrl: 'e99307154c6dfb0b4750f6603256716d',
+        cast: [],
+        
         }
+    },
+
+    mounted() {
+        axios.get(`https://api.themoviedb.org/3/movie/${this.id}/credits?`, {
+            params: {
+                api_key: this.apiUrl
+            }
+        }).then(res => {
+            this.cast = [...res.data.cast]
+        })
+        .catch((error) => {
+            console.log('errore= ' + error);
+        })
+    },
+
+    methods: {
+
+        catsNameFn(id){
+            let catsName = [];
+            this.id = id;
+            this.cast.forEach(el => {
+                if(catsName.length < 5){
+                    catsName.push(el.name)
+                } 
+            })
+            return catsName
+        }
+    }
 }
 </script>
 

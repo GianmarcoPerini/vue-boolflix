@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <Header :axMov="axiosMovies" :axSer="axiosSeries" />
-    <Main :bigDataMovies="dataFolderMov" :bigDataSeries="dataFolderSer" />
-    <button @click="axiosMovies">cliccami</button>
+    <Main :bigDataMovies="dataFolderMov" :bigDataSeries="dataFolderSer" :load="loading"/>
   </div>
 </template>
 
@@ -26,7 +25,8 @@ export default {
     apiKey: 'e99307154c6dfb0b4750f6603256716d',
     apiUrlMov: 'https://api.themoviedb.org/3/search/movie',
     apiUrlSer: 'https://api.themoviedb.org/3/search/tv',
-    count: 1,
+    loading: false,
+    id: [],
     }
   },
 
@@ -41,7 +41,8 @@ export default {
             page: this.count,
           }
         }).then(res => {
-          this.dataFolderMov = [...res.data.results]          
+          this.dataFolderMov = [...res.data.results]
+          this.loading = true
         }) 
       }
     },
@@ -55,7 +56,8 @@ export default {
             page: 1,
           }
         }).then(res => {
-          this.dataFolderSer = [...res.data.results]
+          this.dataFolderSer = [...res.data.results];
+          this.loading = true
         }) 
       }
     },

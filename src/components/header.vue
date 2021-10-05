@@ -8,7 +8,7 @@
             <div class="input-box col-md-6 col-12">
                 <form @submit.prevent>
                     <input class="me-4" type="search" v-model.trim=" myInput " @keyup.enter=" axMov(myInput), axSer(myInput), reset()">
-                    <button type="reset" @click=" axMov(myInput), axSer(myInput) "> Ricerca </button>
+                    <button type="submit" @click=" axMov(myInput), axSer(myInput) "> Ricerca </button>
                 </form>
             </div>
         </div>
